@@ -17,6 +17,10 @@ public class PlayerService {
         return repository.findAll();
     }
 
+    public List<Player> getAllPlayersPaginatedAndSorted(int page, int size, String sortBy,  String direction) {
+        return repository.findAllPaginatedAndSorted(page, size, sortBy, direction);
+    }
+
     public Player getPlayerById(int id) {
         return repository.findById(id);
     }

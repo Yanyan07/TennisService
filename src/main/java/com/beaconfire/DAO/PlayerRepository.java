@@ -31,6 +31,25 @@ public class PlayerRepository {
         );
     }
 
+    public List<Player> findAllPaginatedAndSorted(int page, int size, String sortBy, String direction) {
+        String sortRule;
+        switch(sortBy) {
+            case "age": sortRule="birth_date"; break;
+            case "height": sortRule = "height_cm"; break;
+            case "careerTitle": sortRule = "career_titles"; break;
+            case "careerWins": sortRule = "career_wins"; break;
+            default: sortRule = "player_id";
+        }
+
+        if(!"asc".equalsIgnoreCase(direction) && !"desc".equalsIgnoreCase(direction)) {
+            direction = "asc";
+        }
+        int offset = page * size;
+        String sql = "SELECT * FROM players ORDER BY " + sortRule + " " + direction + " LIMIT ? OFFSET ?";
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Player.class), size, offset);
+    }
+
     public Player findById(int id) {
         return jdbcTemplate.queryForObject(
                 "SELECT * FROM players WHERE player_id = ?",
