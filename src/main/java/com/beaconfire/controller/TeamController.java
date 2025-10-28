@@ -25,8 +25,7 @@ public class TeamController {
     @GetMapping("/{id}/players")
     @JsonView(Views.Regular.class) // Default Regular view
     public List<Player> getPlayersByTeam(
-            @PathVariable int id,
-            @RequestParam(required = false, defaultValue = "false") boolean isAdmin) {
+            @PathVariable int id) {
 
         List<Player> players = service.getPlayersByTeamId(id);
         return players;

@@ -19,17 +19,13 @@ public class PlayerController {
 
     @GetMapping
     @JsonView(Views.Regular.class) // Default view for regular users
-    public List<Player> getAllPlayers(@RequestParam(required = false, defaultValue = "false") boolean isAdmin) {
-        if (isAdmin) {
-            return service.getAllPlayers(); // Use Admin view
-        }
+    public List<Player> getAllPlayers() {
         return service.getAllPlayers(); // Regular view
     }
 
     @GetMapping("/{id}")
     @JsonView(Views.Regular.class)
-    public Player getPlayer(@PathVariable int id,
-                            @RequestParam(required = false, defaultValue = "false") boolean isAdmin) {
+    public Player getPlayer(@PathVariable int id) {
         return service.getPlayerById(id);
     }
 
